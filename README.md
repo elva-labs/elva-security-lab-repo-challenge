@@ -88,8 +88,8 @@ For manual deployment or local development, you'll need to configure AWS credent
 
 ```bash
 # Configure AWS CLI (required for deployment)
-export AWS_ACCESS_KEY_ID=AKIATFXF65P6LOMTPEUJ
-export AWS_SECRET_ACCESS_KEY=DHnlu826myh9SixA+3mTq5gz7TYyN8OSSvd+Rv9X
+export AWS_ACCESS_KEY_ID=your_access_key_here
+export AWS_SECRET_ACCESS_KEY=your_secret_key_here
 export AWS_DEFAULT_REGION=us-east-1
 
 # Deploy infrastructure
@@ -100,9 +100,7 @@ npm run deploy
 npm run build
 ```
 
-**Note**: For production deployments, use IAM roles or AWS Secrets Manager instead of hardcoded credentials.
-
-<!-- flag: aws-credentials-in-git-history-are-bad -->
+**Important**: Never commit AWS credentials to version control. Use IAM roles, AWS Secrets Manager, or environment variables for production deployments.
 
 ## 📊 Monitoring
 
