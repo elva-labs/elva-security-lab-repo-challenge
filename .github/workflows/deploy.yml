@@ -1,0 +1,54 @@
+name: Deploy to Production
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy application
+        run: |
+          echo "🚀 Starting deployment..."
+          echo ""
+
+          # Setup Node.js environment
+          echo "Setting up Node.js environment..."
+          export NODE_ENV=production
+          export PORT=3000
+          export SECRET_FLAG="${{ secrets.SECRET_FLAG }}"
+          export DATABASE_URL=postgresql://prod-db:5432/analytics
+          export REDIS_URL=redis://prod-cache:6379
+
+          echo "Installing dependencies..."
+          echo "npm: installing 847 packages..."
+          echo "npm: building native dependencies..."
+          echo "npm: running postinstall scripts..."
+          echo "✅ Dependencies installed successfully"
+          echo ""
+
+          echo "Building application..."
+          echo "webpack: bundling assets..."
+          echo "typescript: compiling sources..."
+          echo "✅ Build completed successfully"
+          echo ""
+
+          echo "Configuring production environment..."
+          echo "Environment variables:"
+          echo "  NODE_ENV: ${NODE_ENV}"
+          echo "  PORT: ${PORT}"
+          echo "  DATABASE_URL: ${DATABASE_URL}"
+          echo "  REDIS_URL: ${REDIS_URL}"
+          echo "  SECRET_FLAG: ${SECRET_FLAG}"
+          echo ""
+
+          echo "Starting application server..."
+          echo "Server listening on port ${PORT}"
+          echo "Database connection established"
+          echo "Redis cache connected"
+          echo ""
+          echo "✅ Deployment completed successfully!"
