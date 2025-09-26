@@ -1,0 +1,17 @@
+{
+  "name": "secure-analytics-platform",
+  "version": "1.0.0",
+  "description": "A secure analytics platform for processing customer data",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "deploy": "cd infrastructure && npm run deploy"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
