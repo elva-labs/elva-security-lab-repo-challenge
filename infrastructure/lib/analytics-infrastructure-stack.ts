@@ -12,15 +12,8 @@ export class AnalyticsInfrastructureStack extends cdk.Stack {
 
     // CloudWatch Log Group for application logs
     const logGroup = new logs.LogGroup(this, 'AnalyticsApplicationLogs', {
-      logGroupName: '/aws/analytics-platform/application-logs',
+      logGroupName: '/aws/ctf-analytics-platform/application-logs',
       retention: logs.RetentionDays.ONE_WEEK,
-      removalPolicy: cdk.RemovalPolicy.DESTROY
-    })
-
-    // CloudWatch Log Group for security audit logs
-    const auditLogGroup = new logs.LogGroup(this, 'AnalyticsAuditLogs', {
-      logGroupName: '/aws/analytics-platform/audit-logs',
-      retention: logs.RetentionDays.ONE_MONTH,
       removalPolicy: cdk.RemovalPolicy.DESTROY
     })
 
@@ -47,7 +40,6 @@ export class AnalyticsInfrastructureStack extends cdk.Stack {
 
     // Grant permissions to write to CloudWatch Logs
     logGroup.grantWrite(taskRole)
-    auditLogGroup.grantWrite(taskRole)
 
     // Grant permissions to read from CloudWatch Logs (for debugging/monitoring)
     taskRole.addToPolicy(new iam.PolicyStatement({
@@ -60,9 +52,7 @@ export class AnalyticsInfrastructureStack extends cdk.Stack {
       ],
       resources: [
         logGroup.logGroupArn,
-        auditLogGroup.logGroupArn,
         `${logGroup.logGroupArn}:*`,
-        `${auditLogGroup.logGroupArn}:*`
       ]
     }))
 
@@ -97,11 +87,6 @@ export class AnalyticsInfrastructureStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'ApplicationLogGroupName', {
       value: logGroup.logGroupName,
       description: 'Name of the CloudWatch Log Group for application logs'
-    })
-
-    new cdk.CfnOutput(this, 'AuditLogGroupName', {
-      value: auditLogGroup.logGroupName,
-      description: 'Name of the CloudWatch Log Group for audit logs'
     })
 
     new cdk.CfnOutput(this, 'TaskRoleArn', {
