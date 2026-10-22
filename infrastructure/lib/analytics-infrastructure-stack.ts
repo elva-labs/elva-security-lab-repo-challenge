@@ -71,7 +71,7 @@ export class AnalyticsInfrastructureStack extends cdk.Stack {
 
     // Container definition (placeholder)
     fargateService.taskDefinition.addContainer('analytics-backend', {
-      image: ecs.ContainerImage.fromRegistry('node:18-alpine'),
+      image: ecs.ContainerImage.fromRegistry('node:22-alpine'),
       memoryLimitMiB: 512,
       logging: ecs.LogDrivers.awsLogs({
         streamPrefix: 'analytics-backend',
